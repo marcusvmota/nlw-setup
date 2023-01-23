@@ -6,24 +6,20 @@ const nlwSetup = new NLWSetup(form)
 form.addEventListener("change", save)
 
 function add() {
+  const today = new Date().toLocaleDateString("pt-br").slice(0, -5)
+  const dayExists = nlwSetup.dayExists(today)
 
-    const today = new Date().toLocaleDateString("pt-br").slice(0, -5)
+  if (dayExists) {
+    return
+  }
 
-    const dayExists = nlwSetup.dayExists(today)
-
-    if(dayExists) {
-        return
-    }
-
-    alert("Dia cadastrado com sucesso")
-    nlwSetup.addDay(today)
+  alert("Adicionado com sucesso ✅")
+  nlwSetup.addDay(today)
 }
 
 function save() {
-    localStorage.setItem("NLWSetup@habits", JSON.stringify(nlwSetup.data) )
+  localStorage.setItem("NLWSetup@habits", JSON.stringify(nlwSetup.data))
 }
-
-
 
 const data = JSON.parse(localStorage.getItem("NLWSetup@habits")) || {}
 nlwSetup.setData(data)
